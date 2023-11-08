@@ -1,0 +1,7 @@
+from .base import *
+DEBUG = env('DEBUG_PRODUCTION')
+ALLOWED_HOSTS = [env('ALLOWED_HOSTS_PRODUCTION')]
+SECRET_KEY = env('SECRET_KEY')
+
+
+
