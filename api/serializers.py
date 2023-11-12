@@ -68,7 +68,8 @@ class PlayerStatsSerializer(serializers.ModelSerializer):
     wins           = serializers.IntegerField(validators=[required,validate_number])    
     draws          = serializers.IntegerField(validators=[required,validate_number]) 
     defeats        = serializers.IntegerField(validators=[required,validate_number])   
-    team_goals     = serializers.IntegerField(validators=[required,validate_number])   
+    team_goals     = serializers.IntegerField(validators=[required,validate_number])
+    minutes_played = serializers.IntegerField(validators=[required,validate_number])   
     season         = serializers.CharField(validators=[required,validate_season])   
 
     class Meta:

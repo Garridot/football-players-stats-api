@@ -4,7 +4,6 @@ from authentication.models import User
 from rest_framework import status
 from django.test import TestCase
 from api.models import Players
-
             
 class PlayerViewSetTestCase(TestCase):
     def setUp(self):
@@ -21,62 +20,55 @@ class PlayerViewSetTestCase(TestCase):
         response = self.client.get('/api/players/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_create_empty_player(self):
-        data = {
-            "name": "",
-            "age": 19,
-            "date_of_birth": '2023-11-02',
-            "nationality": 'España',
-            "position": 'Position Player',
-            "current_club": "Club One"
-        }
-        response = self.create_player(data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(Players.objects.count(), 0)
-
-    def test_age_invalid(self):
-        data = {
-            "name": "Player One",
-            "age": -19,
-            "date_of_birth": '2023-11-02',
-            "nationality": 'España',
-            "position": 'Position Player',
-            "current_club": "Club One"
-        }
-        response = self.create_player(data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(Players.objects.count(), 0)
-
-    def test_date_invalid(self):
-        data = {
-            "name": "Player One",
-            "age": 19,
-            "date_of_birth": '2023-June-Sunday',
-            "nationality": 'España',
-            "position": 'Position Player',
-            "current_club": "Club One"
-        }
-        response = self.create_player(data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(Players.objects.count(), 0)
-
-    def test_update_player(self):
-        player = Players.objects.create(
+    def player_created(self):
+        return Players.objects.create(
             name='Player One',
             age=20,
             date_of_birth='2023-11-02',
             nationality='Country One',
             position='Position Player',
             current_club='Club One'
-        )
-        data = {
-            "name": "Player Updated",
-            "age": 19,
+        )    
+
+    def create_test_player(self):
+        return {
+            "name": "Player One",
+            "age": -19,
             "date_of_birth": '2023-11-02',
-            "nationality": 'España',
+            "nationality": 'Country One',
             "position": 'Position Player',
             "current_club": "Club One"
-        }
+        } 
+
+    def test_create_empty_player(self):
+        data = self.create_test_player()
+        data["name"] = ""            
+        response = self.create_player(data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Players.objects.count(), 0)
+
+    def test_age_invalid(self):        
+        data = self.create_test_player()
+        data["age"] = -19 
+        response = self.create_player(data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Players.objects.count(), 0)
+
+    def test_date_invalid(self):
+        # test to ensure that the 'date of birth' field is entered in the format 'YYYY-MM-DD'
+        data = self.create_test_player()
+        data["date_of_birth"] = '2023-June-Sunday'        
+        response = self.create_player(data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Players.objects.count(), 0)
+
+    def test_update_player(self):
+        player = self.player_created()
+        data = self.create_test_player()
+        data["name"] = 'Player Updated' 
+        data["age"]  = 19
+        data["nationality"]  = 'España'
+       
         response = self.client.put(f'/api/players/{player.id}/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         player.refresh_from_db()
@@ -85,14 +77,7 @@ class PlayerViewSetTestCase(TestCase):
         self.assertEqual(player.nationality, "España")
 
     def test_delete_player(self):
-        player = Players.objects.create(
-            name='Player One',
-            age=20,
-            date_of_birth='2023-11-02',
-            nationality='Country One',
-            position='Position Player',
-            current_club='Club One'
-        )
+        player = self.player_created()
         response = self.client.delete(f'/api/players/{player.id}/', format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         with self.assertRaises(Players.DoesNotExist):
