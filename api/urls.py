@@ -8,5 +8,5 @@ router.register('players',views.PlayerView,basename='players')
 router.register('player_stats',views.PlayerStatsView,basename='player_stats') 
 
 urlpatterns = [ 
-    path('api/',include(router.urls)),    
+    path('',include(router.urls)),    
 ]    
