@@ -20,7 +20,7 @@ class PlayerView(ModelViewSet):
     queryset           = Players.objects.all() 
 
     def get_permissions(self):
-        if self.action in ['list']: return [permissions.AllowAny()]
+        if self.action in ['list','retrieve']: return [permissions.AllowAny()]
         elif self.action in ['create', 'update', 'partial_update', 'destroy']:
             return [IsAuthenticatedForCustomActions()]       
         return [permissions.IsAuthenticated()]  
@@ -46,7 +46,7 @@ class PlayerStatsView(ModelViewSet):
     queryset           = Player_Stats.objects.all() 
 
     def get_permissions(self):
-        if self.action in ['list']: return [permissions.AllowAny()]
+        if self.action in ['list','retrieve']: return [permissions.AllowAny()]
         elif self.action in ['create', 'update', 'partial_update', 'destroy']:
             return [IsAuthenticatedForCustomActions()]       
         return [permissions.IsAuthenticated()]             
