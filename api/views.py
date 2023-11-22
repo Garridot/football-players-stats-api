@@ -53,7 +53,7 @@ class PlayerStatsView(ModelViewSet):
 
     def list(self, request):
         queryset   = Player_Stats.objects.all()
-        serializer = PlayerSerializer(queryset, many=True)        
+        serializer = PlayerStatsSerializer(queryset, many=True)        
         return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):        
