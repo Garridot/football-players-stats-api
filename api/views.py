@@ -55,13 +55,26 @@ class PlayerStatsView(ModelViewSet):
         queryset   = Player_Stats.objects.all()
         serializer = PlayerStatsSerializer(queryset, many=True)        
         return Response(serializer.data)
-
-    def create(self, request, *args, **kwargs):        
-
-        data = request.data   
         
-        serializer = self.get_serializer(data=data)
+   
+    def create(self, request, *args, **kwargs):
+        # Extract relevant data from the request
+        player_id = request.data.get('player')
+        team = request.data.get('team')
+        competition = request.data.get('competition')
+        season = request.data.get('season')
+
+        # Check if a record already exists for the specified player, team, competition, and season
+        existing_record = Player_Stats.objects.filter(player=player_id, team=team, competition=competition, season=season).first()
+
+        if existing_record:
+            # If the record exists, update it
+            serializer = self.get_serializer(existing_record, data=request.data, partial=True)
+        else:
+            # If the record doesn't exist, create a new one
+            serializer = self.get_serializer(data=request.data)
+
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-    
-        return Response(serializer.data, status=status.HTTP_201_CREATED, ) 
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)    
