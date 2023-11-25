@@ -52,7 +52,23 @@ class PlayerStatsView(ModelViewSet):
         return [permissions.IsAuthenticated()]             
 
     def list(self, request):
-        queryset   = Player_Stats.objects.all()
+
+        player_id = request.data.get('player')
+        team = request.data.get('team')
+        competition = request.data.get('competition')
+        season = request.data.get('season')
+
+        # Check if a record already exists for the specified player, team, competition, and season
+        queryset = Player_Stats.objects.all()
+        if player_id is not None:
+            queryset = queryset.filter(player=player_id)
+        if team is not None:
+            queryset = queryset.filter(team=team)
+        if competition is not None:
+            queryset = queryset.filter(competition=competition)
+        if season is not None:
+            queryset = queryset.filter(season=season)
+  
         serializer = PlayerStatsSerializer(queryset, many=True)        
         return Response(serializer.data)
         
