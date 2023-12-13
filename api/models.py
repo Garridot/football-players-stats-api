@@ -27,3 +27,15 @@ class Player_Stats(models.Model):
     team_goals     = models.IntegerField() 
     minutes_played = models.IntegerField()
     season         = models.CharField(max_length=100)   
+
+
+class Stats_by_Position(models.Model):
+    player   = models.ForeignKey(Players, on_delete=models.CASCADE)
+    position = models.CharField(max_length=100)    
+    games    = models.IntegerField()
+    goals    = models.IntegerField()
+    assists  = models.IntegerField()
+    season   = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.player} - {self.position} - {self.season}"

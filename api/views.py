@@ -41,7 +41,7 @@ class PlayerView(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED, )   
 
 
-class PlayerStatsView(ModelViewSet):        
+class GeneralStatsView(ModelViewSet):        
     serializer_class   = PlayerStatsSerializer
     queryset           = Player_Stats.objects.all() 
 
@@ -94,3 +94,50 @@ class PlayerStatsView(ModelViewSet):
         self.perform_create(serializer)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)    
+
+class StatsbyPositionView(ModelViewSet):   
+    serializer_class   = StatsbyPositionSerializer
+    queryset           = Stats_by_Position.objects.all() 
+
+    def get_permissions(self):
+        if self.action in ['list','retrieve']: return [permissions.AllowAny()]
+        elif self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAuthenticatedForCustomActions()]       
+        return [permissions.IsAuthenticated()]             
+
+    def list(self, request):
+
+        player_id = request.data.get('player')        
+        season = request.data.get('season')
+
+        # Check if a record already exists for the specified player, team, competition, and season
+        queryset = Stats_by_Position.objects.all()
+        if player_id is not None:
+            queryset = queryset.filter(player=player_id)        
+        if season is not None:
+            queryset = queryset.filter(season=season)
+  
+        serializer = StatsbyPositionSerializer(queryset, many=True)        
+        return Response(serializer.data)
+        
+   
+    def create(self, request, *args, **kwargs):
+        # Extract relevant data from the request
+        player_id = request.data.get('player')  
+        position  = request.data.get('position')      
+        season    = request.data.get('season')
+
+        # Check if a record already exists for the specified player, team, competition, and season
+        existing_record = Stats_by_Position.objects.filter(player=player_id,position=position,season=season).first()
+
+        if existing_record:
+            # If the record exists, update it
+            serializer = self.get_serializer(existing_record, data=request.data, partial=True)
+        else:
+            # If the record doesn't exist, create a new one
+            serializer = self.get_serializer(data=request.data)
+
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)          

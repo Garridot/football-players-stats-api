@@ -5,7 +5,8 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register('players',views.PlayerView,basename='players') 
-router.register('player_stats',views.PlayerStatsView,basename='player_stats') 
+router.register('player_stats',views.GeneralStatsView,basename='player_stats') 
+router.register('player_stats_by_position',views.StatsbyPositionView,basename='player_stats_by_position') 
 
 urlpatterns = [ 
     path('',include(router.urls)),    

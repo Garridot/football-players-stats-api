@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Players, Player_Stats
+from .models import Players, Player_Stats, Stats_by_Position
 from rest_framework import status
 from datetime import datetime
 import re
@@ -51,8 +51,7 @@ class PlayerSerializer(serializers.ModelSerializer):
         instance.position      = validated_data.get('position', instance.position)
         instance.current_club  = validated_data.get('current_club', instance.current_club)
         instance.save()
-        return instance    
-
+        return instance   
 
 def validate_season(value):                
         pattern = r'^\d{4}-\d{4}$'
@@ -78,6 +77,24 @@ class PlayerStatsSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):       
         return Player_Stats.objects.create(**validated_data) 
+
+    def validate(self, attrs): 
+        return super().validate(attrs)  
+
+
+class StatsbyPositionSerializer(serializers.ModelSerializer): 
+    position       = serializers.CharField(validators=[required])    
+    goals          = serializers.IntegerField(validators=[required,validate_number]) 
+    assists        = serializers.IntegerField(validators=[required,validate_number]) 
+    games          = serializers.IntegerField(validators=[required,validate_number]) 
+    season         = serializers.CharField(validators=[required,validate_season])   
+
+    class Meta:
+        model  = Stats_by_Position
+        fields =  ('__all__')
+
+    def create(self, validated_data):       
+        return Stats_by_Position.objects.create(**validated_data) 
 
     def validate(self, attrs): 
         return super().validate(attrs)  
