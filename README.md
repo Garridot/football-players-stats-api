@@ -103,7 +103,7 @@ def get_list_players():
 
 #### **Result:**
 
-``` json
+```
 [
     {'id': 1, 'name': 'Lionel Messi', 'age': 36, 'date_of_birth': '1987-06-24', 'nationality': 'Argentina', 'position': 'Right Winger', 'current_club': 'Miami'},
     {'id': 2, 'name': 'Kylian Mbappé', 'age': 24, 'date_of_birth': '1998-12-20', 'nationality': 'France', 'position': 'Left Winger', 'current_club': 'Paris SG'}, 
@@ -133,7 +133,7 @@ def get_player(data):
 
 #### **Result:**
 
-``` json
+```
 [
     {'id': 1, 'name': 'Lionel Messi', 'age': 36, 'date_of_birth': '1987-06-24', 'nationality': 'Argentina', 'position': 'Right Winger', 'current_club': 'Miami'},    
 ]
@@ -159,7 +159,7 @@ def get_stats(data):
 
 #### **Result:**
 
-``` json
+```
 [
     {'id': 11, 'team': 'FC Barcelona', 'competition': 'UEFA Champions League', 'goals': 5, 'assists': 2, 'games': 6, 'wins': 3, 'draws': 1, 'defeats': 0, 'team_goals': 11, 'minutes_played': 540, 'season': '2020-2021', 'player': 1}, 
     {'id': 17, 'team': 'FC Barcelona', 'competition': 'UEFA Champions League', 'goals': 3, 'assists': 4, 'games': 8, 'wins': 4, 'draws': 3, 'defeats': 0, 'team_goals': 13, 'minutes_played': 661, 'season': '2019-2020', 'player': 1}, 
@@ -188,7 +188,7 @@ def get_stats_by_position(data):
 
 #### **Result:**
 
-``` json
+```
 [
     {'id': 319, 'position': 'Centre-Forward', 'goals': 11, 'assists': 14, 'games': 26, 'season': '2022-2023', 'player': 1}, 
     {'id': 320, 'position': 'Right Winger', 'goals': 15, 'assists': 7, 'games': 19, 'season': '2022-2023', 'player': 1}, 
