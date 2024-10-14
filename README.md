@@ -13,6 +13,7 @@ It consists of three modules: **API**, **web scraping**, and **website**, which 
 
 - The website was built using **Flask**, **JavaScript**, and **Charts js**. You can see the website [here](https://github.com/Garridot/football_players_charts).
 
+---
 <br>
 
 ### Table of Contents
