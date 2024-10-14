@@ -3,7 +3,6 @@
 **Football Players Stats is a project designed to manage the extraction, cleaning, saving, and visualization of data on athletes' performance to illustrate their impact and goal contributions in their careers.**
 
 ---
-<br>
 
 It consists of three modules: **API**, **web scraping**, and **website**, which operate independently and communicate with each other.
 
