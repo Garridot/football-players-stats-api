@@ -1,18 +1,28 @@
+# Football Players Stats API
 
-# Football Players Stats Api
+**Football Players Stats is a project designed to manage the extraction, cleaning, saving, and visualization of data on athletes' performance to illustrate their impact and goal contributions in their careers.**
 
-The Football Players Stats API is a Django Rest Framework project designed for managing football player information and statistics. 
+---
+<br>
 
+It consists of three modules: **API**, **web scraping**, and **website**, which operate independently and communicate with each other.
 
+- The core **API** manages the project logic, authentication, and database connection. It was developed using **Django Rest Framework**.
 
-# Table of Contents
+- Data extraction is performed using **BeautifulSoup (bs4)** and **Pandas**. **GitHub actions** are utilized for automation. You can see the web scraping [here](https://github.com/Garridot/football_players_web_sraping).
 
-1. [Getting Started](#getting-started)
-2. [API Endpoints](#api-endpoints)	
-3. [Examples](#examples)	
-4. [Web Scraping](#web-scraping)
-5. [Questions](#questions)
-5. [Deployment on Render](#deployment-on-render)
+- The website was built using **Flask**, **JavaScript**, and **Charts js**. You can see the website [here](https://github.com/Garridot/football_players_charts).
+
+<br>
+
+### Table of Contents
+
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)	
+- [Examples](#examples)	
+- [Web Scraping](#web-scraping)
+- [Questions](#questions)
+- [Deployment on Render](#deployment-on-render)
 
 ---
 
