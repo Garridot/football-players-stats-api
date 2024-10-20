@@ -12,7 +12,6 @@ class IsAuthenticatedForCustomActions(permissions.BasePermission):
         # Allow access only if the user is authenticated
         return request.user.is_authenticated
 
-
 # ViewSet to handle CRUD operations for Player model
 class PlayerView(ModelViewSet):        
     serializer_class   = PlayerSerializer
