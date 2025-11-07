@@ -2,10 +2,7 @@
     "builds": [
       {
         "src": "project_package/wsgi.py",
-        "use": "@vercel/python",
-        "config": {
-          "runtime": "python3.8" 
-        }
+        "use": "@vercel/python"        
       }
     ],
     "routes": [
