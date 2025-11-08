@@ -7,10 +7,12 @@ import os
 
 DEBUG = os.environ.get("DEBUG_PRODUCTION")
 
-# Retrieve the value of ALLOWED_HOSTS_PRODUCTION from .env file
-ALLOWED_HOSTS_PRODUCTION = os.environ.get('ALLOWED_HOSTS_PRODUCTION', default='', cast=lambda v: [s.strip() for s in v.split(',')])
-# Set ALLOWED_HOSTS using the retrieved value
-ALLOWED_HOSTS = ALLOWED_HOSTS_PRODUCTION
+ALLOWED_HOSTS_PRODUCTION_VALUE = os.environ.get('ALLOWED_HOSTS_PRODUCTION')
+
+if ALLOWED_HOSTS_PRODUCTION_VALUE:    
+    ALLOWED_HOSTS = [s.strip() for s in ALLOWED_HOSTS_PRODUCTION_VALUE.split(',')]
+else:    
+    ALLOWED_HOSTS = []
 
 DB_URL = os.environ.get("DATABASE_CONFIG")
 
