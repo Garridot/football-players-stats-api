@@ -12,6 +12,11 @@ ALLOWED_HOSTS_PRODUCTION = env('ALLOWED_HOSTS_PRODUCTION', default='', cast=lamb
 # Set ALLOWED_HOSTS using the retrieved value
 ALLOWED_HOSTS = ALLOWED_HOSTS_PRODUCTION
 
-DATABASES = {    
-	"default": dj_database_url.parse(os.environ.get("DATABASE_CONFIG"))
+DB_URL = os.environ.get("DATABASE_CONFIG")
+
+if not DB_URL:    
+    DB_URL = env("DATABASE_CONFIG")
+
+DATABASES = {
+	"default": dj_database_url.parse(DB_URL)
 }
