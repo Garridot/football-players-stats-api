@@ -12,7 +12,6 @@ router.register('player_stats_general',views.GeneralStatsView,basename='player_s
 router.register('player_stats_position',views.StatsbyPositionView,basename='player_stats_by_position')
 
 
-# Vista de bienvenida que incluye los endpoints
 def api_root(request, format=None):
     return JsonResponse({
         "message": "Welcome to the Football Player Stats API.",
@@ -26,7 +25,5 @@ def api_root(request, format=None):
         }
     })
 
-urlpatterns = [ 
-    path('', api_root, name='api-root'),
-    path('',include(router.urls)),    
-]    
+urlpatterns = router.urls
+urlpatterns.insert(0, path('', api_root, name='api-root'))
