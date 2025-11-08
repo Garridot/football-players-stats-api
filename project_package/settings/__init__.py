@@ -1,5 +1,5 @@
 from .base import *
-from .jwt import *
+
 from .static import *
 
 import os
