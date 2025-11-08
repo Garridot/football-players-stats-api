@@ -4,7 +4,7 @@ from .static import *
 
 import os
 
-env = os.getenv('DJANGO_ENV')
+env = os.environ.get('DJANGO_ENV')
 
 # Import the environment-specific settings
 if env == 'production':
