@@ -22,6 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),    
-    path('auth/', include('authentication.urls')), 
+    path('auth/', include(('authentication.urls', 'authentication'), namespace='authentication')),
     path('', include('data_manager.urls'))
 ]

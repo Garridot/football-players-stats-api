@@ -19,7 +19,7 @@ def api_root(request, format=None):
             "players": reverse('players-list', request=request, format=format),
             "player_stats_general": reverse('player_stats-list', request=request, format=format),
             "player_stats_position": reverse('player_stats_by_position-list', request=request, format=format),
-            "register": reverse('register', request=request, format=format),
+            "register": reverse('authentication:register', request=request, format=format),
             "token_obtain_pair": reverse('token_obtain_pair', request=request, format=format),
             "token_refresh": reverse('token_refresh', request=request, format=format),
         }
