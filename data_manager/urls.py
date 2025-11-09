@@ -1,5 +1,5 @@
 from django.db import router
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
 from rest_framework.routers import DefaultRouter
 from django.http import JsonResponse
@@ -25,4 +25,8 @@ def api_root(request, format=None):
         }
     })
 
-urlpatterns = router.urls 
+api_root_pattern = [
+    re_path(r'^$', api_root, name='api-root'),
+]
+
+urlpatterns = api_root_pattern + router.urls
