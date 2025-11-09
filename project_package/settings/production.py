@@ -14,11 +14,11 @@ if ALLOWED_HOSTS_PRODUCTION_VALUE:
 else:    
     ALLOWED_HOSTS = []
 
-# DB_URL = os.environ.get("DATABASE_CONFIG")
+DB_URL = os.environ.get("DATABASE_CONFIG")
 
-# if not DB_URL:    
-#     DB_URL = env("DATABASE_CONFIG")
+if not DB_URL:    
+    DB_URL = env("DATABASE_CONFIG")
 
-# DATABASES = {
-# 	"default": dj_database_url.parse(DB_URL)
-# }
+DATABASES = {
+	"default": dj_database_url.parse(DB_URL)
+}
