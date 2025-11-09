@@ -25,5 +25,6 @@ def api_root(request, format=None):
         }
     })
 
-urlpatterns = router.urls
-urlpatterns.insert(0, path('', api_root, name='api-root'))
+urlpatterns = [
+    path('', api_root, name='api-root'),     
+] + router.urls 
